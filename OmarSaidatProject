@@ -1,0 +1,29 @@
+!pip install face_recognition
+import os
+
+# Create directories
+os.makedirs('known', exist_ok=True)
+os.makedirs('unknown', exist_ok=True)
+
+# Define images to download
+images_to_download = {
+    "known": {
+        "MBZ.jpg": "https://static01.nyt.com/images/2020/01/12/magazine/12mag-MBZ-image1/12mag-MBZ-image1-superJumbo.jpg",
+        "Sultan.jpg": "https://ourallegiancetokhalifa.com/commonimages/CurrentRulers/sultan.jpg",
+        "BaBa.jpg": "https://secure.b8cdn.com/images/uploads/user_photos/62/28667862_20190522041908.jpg",
+    },
+    "unknown": {
+        "1.jpg": "https://cdn-images-1.medium.com/v2/resize:fit:1200/1*aEoYLgy4z1lT1kW7dqWzBg.jpeg",
+        "2.jpg": "https://www.albayan.ae/polopoly_fs/1.4667536.1684790158!/image/image.jpg",
+        "3.jpg": "https://upload.wikimedia.org/wikipedia/commons/0/0f/James_Robert_Mann_cph.3b03510_%28cropped%29.jpg",
+    }
+}
+
+# Download function
+def download_images(image_dict):
+    for folder, images in image_dict.items():
+        for filename, url in images.items():
+            if not os.path.exists(f"{folder}/{filename}"):
+                !wget {url} -O {folder}/{filename}
+
+download_images(images_to_download)
